@@ -36,9 +36,8 @@ Semua output dikembalikan dalam format **JSON**.
 ### **1. Clone Repository**
 
 ```bash
-git clone https://github.com/username/praktikum10-mobileapps.git
-cd praktikum10-mobileapps
-# (ubah URL sesuai repo Anda)
+git clone https://github.com/Elfanpradita/LAPRAK-JONATHAN-PERT-10.git
+cd LAPRAK-JONATHAN-PERT-10
 ```
 
 ### **2. Build Docker Container**
