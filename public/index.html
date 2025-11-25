@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CRUD Mahasiswa</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        table, td, th { border: 1px solid black; border-collapse: collapse; padding: 8px; }
+        input, button { margin: 4px; padding: 6px; }
+    </style>
+</head>
+<body>
+
+<h2>Tambah Mahasiswa</h2>
+<form id="addForm">
+    <input type="text" id="nama" placeholder="Nama"><br>
+    <input type="text" id="alamat" placeholder="Alamat"><br>
+    <button type="submit">Simpan</button>
+</form>
+
+<hr>
+
+<h2>List Mahasiswa</h2>
+<button onclick="loadData()">Reload</button>
+<table id="table">
+    <tr>
+        <th>ID</th>
+        <th>Nama</th>
+        <th>Alamat</th>
+        <th>Aksi</th>
+    </tr>
+</table>
+
+<script>
+function loadData() {
+    fetch("/api/getMahasiswa.php")
+        .then(res => res.json())
+        .then(data => {
+            let table = document.getElementById("table");
+            table.innerHTML = `
+                <tr>
+                    <th>ID</th><th>Nama</th><th>Alamat</th><th>Aksi</th>
+                </tr>
+            `;
+            data.forEach(m => {
+                table.innerHTML += `
+                    <tr>
+                        <td>${m.id}</td>
+                        <td>${m.nama}</td>
+                        <td>${m.alamat}</td>
+                        <td>
+                            <button onclick="hapus(${m.id})">Hapus</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        });
+}
+
+document.getElementById("addForm").addEventListener("submit", e => {
+    e.preventDefault();
+    let form = new FormData();
+    form.append("nama", document.getElementById("nama").value);
+    form.append("alamat", document.getElementById("alamat").value);
+
+    fetch("/api/addMahasiswa.php", { method: "POST", body: form })
+        .then(res => res.json())
+        .then(() => loadData());
+});
+
+function hapus(id) {
+    let form = new FormData();
+    form.append("id", id);
+    fetch("/api/deleteMahasiswa.php", { method: "POST", body: form })
+        .then(() => loadData());
+}
+
+loadData();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql_praktikum10
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: umnsi
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  apache:
+    build: ./php
+    container_name: apache_praktikum10
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html/api
+      - ./public:/var/www/html
+    depends_on:
+      - mysql
