@@ -1,9 +1,3 @@
-Ini sudah **lumayan benar**, tapi bagian **penutupan code block (```bash)** dan struktur markdown-nya masih tumpang-tindih sehingga README tampil berantakan.
-
-Berikut versi yang **rapi**, **markdown valid**, dan **bash block tertutup dengan benar**:
-
----
-
 # Praktikum 10 – MySQL & JSON
 
 ## IS534-AL – Mobile Application Development
